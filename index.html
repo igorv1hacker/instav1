@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>InstaV1 - Painel de Suporte Avançado</title>
+    <style>
+        body {
+            background-color: #0f0f0f;
+            color: #f1f1f1;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 36px;
+            color: #00ff99;
+            margin-bottom: 30px;
+        }
+        input, select, button {
+            padding: 12px;
+            margin: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+        }
+        input, select {
+            width: 300px;
+        }
+        button {
+            background-color: #00ff99;
+            color: #0f0f0f;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #00cc77;
+        }
+        .form-container {
+            background-color: #1a1a1a;
+            padding: 30px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🛠 InstaV1 - Painel Hacker de Suporte</h1>
+
+    <div class="form-container">
+        <input type="text" id="nome" placeholder="Seu nome completo"><br>
+        <input type="text" id="usuario" placeholder="@usuario do Instagram"><br>
+        <input type="text" id="idConta" placeholder="ID da conta (opcional)"><br>
+
+        <select id="tipoSolicitacao">
+            <option value="desbanir">Desbanir Conta</option>
+            <option value="reativar">Reativar Conta</option>
+            <option value="2fa">Erro com Autenticação de Dois Fatores</option>
+            <option value="hackeado">Minha Conta Foi Invadida</option>
+        </select><br>
+
+        <button onclick="enviarEmail()">⚡ Enviar Solicitação</button>
+    </div>
+
+    <script>
+        function enviarEmail() {
+            const nome = document.getElementById('nome').value;
+            const usuario = document.getElementById('usuario').value;
+            const idConta = document.getElementById('idConta').value;
+            const tipo = document.getElementById('tipoSolicitacao').value;
+
+            let assunto = "";
+            let corpo = "";
+
+            if (tipo === "desbanir") {
+                assunto = "[URGENTE] Revisão de banimento de conta Instagram";
+                corpo = `Prezada equipe do Instagram,%0D%0A%0D%0AMeu nome é ${nome} e venho, por meio deste, solicitar a revisão imediata do banimento da minha conta (@${usuario}).%0D%0A%0D%0AAcredito que houve um engano, pois sempre procurei seguir as Diretrizes da Comunidade e Termos de Uso da plataforma.%0D%0A%0D%0AID da conta (se aplicável): ${idConta}%0D%0A%0D%0ASolicito a gentileza de uma nova análise e estou à disposição para fornecer qualquer dado adicional que se fizer necessário.%0D%0A%0D%0ACerto da compreensão e transparência de sua equipe, agradeço antecipadamente.%0D%0A%0D%0AAtt.,%0D%0A${nome}`;
+            } else if (tipo === "reativar") {
+                assunto = "[SOLICITAÇÃO] Reativação de conta desativada";
+                corpo = `Prezados(as),%0D%0A%0D%0AInformo que minha conta no Instagram (@${usuario}) foi desativada e solicito, com a presente, sua reativação imediata.%0D%0A%0D%0ANome completo: ${nome}%0D%0AID da conta (caso possua): ${idConta}%0D%0A%0D%0ANão recebi nenhum aviso claro sobre a infração que motivou a desativação e acredito que tenha ocorrido um equívoco.%0D%0A%0D%0AConto com a compreensão da equipe e agradeço desde já pela atenção e retorno.%0D%0A%0D%0AAgradecidamente,%0D%0A${nome}`;
+            } else if (tipo === "2fa") {
+                assunto = "[ERRO] Falha na autenticação de dois fatores";
+                corpo = `Equipe Instagram,%0D%0A%0D%0ANão estou conseguindo acessar minha conta (@${usuario}) devido a problemas com a autenticação de dois fatores (2FA).%0D%0A%0D%0ANome: ${nome}%0D%0AID da conta: ${idConta}%0D%0A%0D%0AJá tentei recuperar o acesso com os recursos disponíveis e não obtive sucesso.%0D%0A%0D%0ASolicito suporte urgente para que eu possa retomar o uso da conta.%0D%0A%0D%0AAtenciosamente,%0D%0A${nome}`;
+            } else if (tipo === "hackeado") {
+                assunto = "[SEGURANÇA] Conta comprometida / invadida";
+                corpo = `Prezados,%0D%0A%0D%0AMinha conta (@${usuario}) foi comprometida/possivelmente invadida, e perdi o acesso total a ela.%0D%0A%0D%0ANome completo: ${nome}%0D%0AID da conta: ${idConta}%0D%0A%0D%0ASolicito o bloqueio imediato de atividades suspeitas e apoio para recuperar o acesso de forma segura.%0D%0A%0D%0AEsta mensagem está em conformidade com meus direitos previstos pela LGPD (Lei Geral de Proteção de Dados).%0D%0A%0D%0AAgradeço pelo suporte e aguardo instruções.%0D%0A%0D%0ACordialmente,%0D%0A${nome}`;
+            }
+
+            const email = "support@instagram.com";
+            const mailtoLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${assunto}&body=${corpo}`;
+            window.open(mailtoLink, '_blank');
+        }
+    </script>
+
+</body>
+</html>
